@@ -2,7 +2,7 @@
 
 Type a prompt, get a textured 3D model (GLB) you can rotate, zoom and download.
 
-**Live demo:** 
+**Live demo:** https://text-to-3d-swart.vercel.app
 **Source code:** https://github.com/Manish367/text-to-3d
 
 ## Features
