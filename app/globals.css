@@ -1,26 +1,45 @@
 @import "tailwindcss";
+:root{--bg:#07070D;--violet:#8B5CF6;--cyan:#22D3EE;--pink:#F472B6;--muted:#A1A1B5}
+html,body{background:var(--bg);color:#fff;font-family:var(--font-inter),system-ui,sans-serif;min-height:100%}
+.head{font-family:var(--font-sora),sans-serif;letter-spacing:-.03em}
+.mono{font-family:var(--font-mono),monospace}
+.bg-mesh{position:fixed;inset:0;z-index:-1;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);animation:drift 18s ease-in-out infinite alternate}
+.b1{width:520px;height:520px;background:var(--violet);top:-140px;left:-120px;opacity:.45}
+.b2{width:460px;height:460px;background:var(--cyan);top:35%;right:-140px;opacity:.28;animation-delay:-6s}
+.b3{width:420px;height:420px;background:var(--pink);bottom:-180px;left:30%;opacity:.22;animation-delay:-12s}
+@keyframes drift{to{transform:translate(80px,60px) scale(1.15)}}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at center,#000 25%,transparent 75%)}
+.glass{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(18px);border-radius:24px}
+.grad-text{background:linear-gradient(90deg,#c4b5fd,#22d3ee,#f472b6,#c4b5fd);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:200% center}}
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Prompt bar: rotation is handled in page.tsx */
+@property --a{syntax:"<angle>";initial-value:0deg;inherits:false}
+@keyframes border-flow{to{--a:360deg}}
+.prompt-wrap{border-radius:22px;padding:2px;background:conic-gradient(from var(--a),#8B5CF6,#22D3EE,#F472B6,#8B5CF6);animation:border-flow 5s linear infinite;box-shadow:0 0 60px rgba(139,92,246,.25)}
+.prompt-in{display:flex;gap:.75rem;align-items:center;background:#0c0c17;border-radius:20px;padding:.6rem .6rem .6rem 1.2rem}
+.prompt-in input{flex:1;min-width:0;background:transparent;outline:none;font-size:1.05rem;color:#fff}
+.prompt-in input::placeholder{color:#7d7d95}
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+.btn{position:relative;overflow:hidden;background:linear-gradient(135deg,#8B5CF6,#22D3EE);color:#07070D;font-weight:700;border-radius:14px;padding:.85rem 1.5rem;white-space:nowrap;transition:transform .2s,box-shadow .2s;box-shadow:0 0 28px rgba(139,92,246,.45)}
+.btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 0 44px rgba(34,211,238,.55)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg);transition:left .6s}
+.btn:hover:not(:disabled)::after{left:130%}
+.chip{border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:.4rem .95rem;font-size:.85rem;color:var(--muted);transition:.2s}
+.chip:hover{color:#fff;border-color:var(--cyan);box-shadow:0 0 16px rgba(34,211,238,.3)}
+.tool{display:flex;align-items:center;gap:.4rem;border:1px solid rgba(255,255,255,.14);background:rgba(10,10,20,.7);backdrop-filter:blur(10px);border-radius:12px;padding:.5rem .85rem;font-size:.85rem;transition:.2s}
+.tool:hover{border-color:var(--violet);box-shadow:0 0 18px rgba(139,92,246,.4)}
+.orb{position:relative;width:130px;height:130px}
+.orb i{position:absolute;inset:0;border-radius:50%;border:2px solid transparent;animation:rot 1.6s linear infinite}
+.orb i:nth-child(1){border-top-color:var(--cyan)}
+.orb i:nth-child(2){inset:14px;border-right-color:var(--violet);animation-duration:2.2s;animation-direction:reverse}
+.orb i:nth-child(3){inset:28px;border-bottom-color:var(--pink);animation-duration:1.2s}
+.orb b{position:absolute;inset:48px;border-radius:50%;background:radial-gradient(circle,#fff,var(--violet));filter:blur(4px);animation:orb-pulse 1.6s ease-in-out infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+@keyframes orb-pulse{50%{transform:scale(1.5);opacity:.6}}
+.bar{height:4px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}
+.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--violet),var(--cyan));transition:width .8s ease}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important}}
