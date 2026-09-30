@@ -193,7 +193,7 @@ export default function Home() {
                   <button className="tool" onClick={() => setViewKey((k) => k + 1)}>Reset view</button>
                   <a className="btn !py-2 !text-sm" href={direct ? proxied : `${proxied}&dl=1&name=${encodeURIComponent(fileName)}`} download={`${fileName}.glb`}>Download GLB</a>
                 </div>
-                <p className="mono pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-[#A1A1B5]">Drag to rotate. Scroll to zoom.</p>
+                <p className="mono pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-[#A1A1B5]">Drag to rotate. Pinch or scroll to zoom.</p>
                 {isSample && <p className="mono pointer-events-none absolute bottom-10 left-1/2 -translate-x-1/2 text-xs text-[#F472B6]">Sample model. Live generation is unavailable right now.</p>}
               </motion.div>
             ) : (
